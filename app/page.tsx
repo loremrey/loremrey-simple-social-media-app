@@ -11,8 +11,10 @@ import { PostCard } from '@/components/custom/PostCard';
 import { Suspense } from 'react';
 import { SuspenseCard } from '@/components/custom/SuspenseCard';
 import Pagination from '@/components/custom/Pagination';
+import { unstable_noStore as noStore } from 'next/cache';
 
 async function getData(searchParam: string) {
+	noStore();
 	const [count, data] = await prisma.$transaction([
 		prisma.post.count(),
 		prisma.post.findMany({
@@ -28,7 +30,7 @@ async function getData(searchParam: string) {
 				Comment: {
 					select: {
 						id: true,
-					}
+					},
 				},
 				User: {
 					select: {
