@@ -32,6 +32,7 @@ export const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function TiptapEditor({ setJson, json }: { setJson: any; json: JSONContent | null }) {
 	const editor = useEditor({
 		extensions: [StarterKit],

@@ -18,6 +18,7 @@ const handlers: NodeHandlers = {
 	paragraph: paragraph,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function RenderToJson({ data }: { data: any }) {
 	return (
 		<div className="px-2 pt-2 prose dark:prose-invert">

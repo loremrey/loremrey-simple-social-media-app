@@ -9,6 +9,7 @@ import { RenderToJson } from './RenderToJson';
 
 interface iAppProps {
 	title: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	jsonContent: any;
 	id: string;
 	subusName: string;

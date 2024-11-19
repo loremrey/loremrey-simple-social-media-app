@@ -92,6 +92,7 @@ export async function updateSubusCommunityDescription(prevState: unknown, formDa
 			status: 'green',
 			message: 'Successfully update subus community description!',
 		};
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (e) {
 		return {
 			status: 'error',
