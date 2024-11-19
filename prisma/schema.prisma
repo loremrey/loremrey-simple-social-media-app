@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String  @id
+  email     String
+  firstName String
+  lastName  String
+  imageUrl  String?
+  username  String? @unique
+
+  createdSubus Subus[]
+  posts        Post[]
+  Vote         Vote[]
+  Comment      Comment[]
+
+  createdAt DateTime @default(now())
+}
+
+model Subus {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+}
+
+model Post {
+  id          String  @id @default(uuid())
+  title       String
+  textContent Json?
+  imageString String?
+
+  Vote    Vote[]
+  Comment Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Subus     Subus?  @relation(fields: [subusName], references: [name])
+  subusName String?
+  User      User?   @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+enum TypeOfVote {
+  UP
+  DOWN
+}
+
+model Vote {
+  id       String     @id @default(uuid())
+  voteType TypeOfVote
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+}
+
+model Comment {
+  id   String @id @default(uuid())
+  text String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+}
